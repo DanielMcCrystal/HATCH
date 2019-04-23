@@ -72,17 +72,18 @@ class Path:
 		#print(next_vertex)
 		#print(nodes_hit)
 		return all(nodes_hit)
-def simulation():
+
+def simulation(n_trials):
 	hamiltonian = 0
-	for i in range(100000):
+	for i in range(n_trials):
 		p = Path(4)
 		if p.is_hamiltonian():
 			hamiltonian += 1
-	print(hamiltonian)
-		
+	print("{} successes out of {} trials".format(hamiltonian, n_trials))
 
 
-simulation()
+
+simulation(100000)
 #p = Path(6)
 #p.print_edges()
 
