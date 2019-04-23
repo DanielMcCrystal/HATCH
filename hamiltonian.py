@@ -23,9 +23,8 @@ class Path:
 		self.__n = n
 		self.__n_vertices = 2 ** n
 		self.__edges = [set() for i in range(self.__n_vertices)]
-		self.__generate_path()
 
-	def __generate_path(self):
+	def generate_path(self):
 		odd_vertices = get_odd_vertices(self.__n)
 		for vertex in odd_vertices:
 			connected = pick_connected_vertices(vertex, 2, self.__n)
@@ -43,47 +42,6 @@ class Path:
 				targets.append(target_format_str.format(dest))
 			print(str(targets))
 
-	def is_hamiltonian(self):
-		#print(self.__edges)
-		nodes_hit = [False for i in range(self.__n_vertices)]
-		nodes_hit[0] = True
-
-		cur = 0
-		if len(self.__edges[0]) != 2:
-			return False
-
-		next_vertex = next(iter(self.__edges[0]))
-		self.__edges[next_vertex].remove(cur)
-
-		#print("{} -> ".format(cur), end="")
-		cur = next_vertex
-
-		while next_vertex != 0:
-			nodes_hit[cur] = True
-
-			if len(self.__edges[cur]) != 1:
-				return False
-
-			next_vertex = next(iter(self.__edges[cur]))
-			self.__edges[next_vertex].remove(cur)
-
-			#print("{} -> ".format(cur), end="")
-			cur = next_vertex
-		#print(next_vertex)
-		#print(nodes_hit)
-		return all(nodes_hit)
-def simulation():
-	hamiltonian = 0
-	for i in range(100000):
-		p = Path(4)
-		if p.is_hamiltonian():
-			hamiltonian += 1
-	print(hamiltonian)
-		
-
-
-simulation()
-#p = Path(6)
-#p.print_edges()
-
-#print(p.is_hamiltonian())
+p = Path(4)
+p.generate_path()
+p.print_edges()
