@@ -35,8 +35,13 @@ class Path:
 	def print_edges(self):
 		for vertex in range(self.__n_vertices):
 			src_format_str = "{0:0" + str(self.__n) + "b} -> "
-			print(src_format_str.format(vertex))
+			print(src_format_str.format(vertex), end="")
+			targets = []
+			for dest in self.__edges[vertex]:
+				target_format_str = "{0:0" + str(self.__n) + "b}"
+				targets.append(target_format_str.format(dest))
+			print(str(targets))
 
-p = Path(2)
+p = Path(4)
 p.generate_path()
 p.print_edges()
