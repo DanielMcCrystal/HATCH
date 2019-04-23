@@ -42,6 +42,38 @@ class Path:
 				targets.append(target_format_str.format(dest))
 			print(str(targets))
 
-p = Path(4)
+	def is_hamiltonian(self):
+		print(self.__edges)
+		nodes_hit = [False for i in range(self.__n_vertices)]
+		nodes_hit[0] = True
+
+		cur = 0
+		if len(self.__edges[0]) != 2:
+			return False
+
+		next_vertex = next(iter(self.__edges[0]))
+		self.__edges[next_vertex].remove(cur)
+
+		print("{} -> ".format(cur), end="")
+		cur = next_vertex
+
+		while next_vertex != 0:
+			nodes_hit[cur] = True
+
+			if len(self.__edges[cur]) != 1:
+				return False
+
+			next_vertex = next(iter(self.__edges[cur]))
+			self.__edges[next_vertex].remove(cur)
+
+			print("{} -> ".format(cur), end="")
+			cur = next_vertex
+		print(next_vertex)
+		#print(nodes_hit)
+		return all(nodes_hit)
+
+p = Path(3)
 p.generate_path()
-p.print_edges()
+#p.print_edges()
+
+print(p.is_hamiltonian())
